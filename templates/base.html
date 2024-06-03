@@ -1,0 +1,33 @@
+
+{% load static  %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+    <title>{% block title %}Gym app{% endblock title %}</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		
+		<link rel="stylesheet" href="{% static 'css/dist/styles.css'%}">
+		{% block header%}
+		{% endblock %}
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js" defer></script>
+		<script src="{% static 'js/toggleTheme.js' %}" defer></script>
+		<script src="{% static 'js/main.js' %}" defer></script>
+		<script src="https://unpkg.com/htmx.org@1.9.11" integrity="sha384-0gxUXCCR8yv9FM2b+U3FDbsKthCI66oH5IA9fHppQq9DDMHuMauqq1ZHBpJxQ0J0" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+	</head>
+
+	<body class="bg-gray-50 dark:bg-gray-700 dark:text-gray-100 font-sans leading-normal tracking-normal lg:grid min-h-svh flex flex-col">
+
+
+		{% include "navbar.html" %}
+
+
+		<div class="p-4 flex-grow lg:ml-64 h-full flex-col flex">
+			{% block content %}{% endblock content %}
+		</div>
+
+		
+	</body>
+</html>

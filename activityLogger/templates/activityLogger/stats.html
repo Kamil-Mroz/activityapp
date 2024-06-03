@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}
+Stats
+{% endblock title %}
+{% block content %}
+
+<script>
+  var data_challenge = [{%for x in data_challenge %}
+  {{x}},
+  {% endfor %}];
+  var colors_challenge = [{%for x in colors_challenge%}
+  "{{x}}",
+  {% endfor %}];
+  var labels_challenge = [{%for x in labels_challenge  %}
+  "{{x}}",
+  {% endfor %}];
+  
+  var data_exercise = [{%for x in data_exercise %}
+  {{x}},
+  {% endfor %}];
+  var colors_exercise = [{%for x in colors_exercise%}
+  "{{x}}",
+  {% endfor %}];
+  var labels_exercise = [{%for x in labels_exercise  %}
+  "{{x}}",
+  {% endfor %}];
+  
+  
+</script>
+<div class="grow">
+  
+  
+  
+  <h1 class="text-4xl font-bold dark:text-white mb-9 text-center">Statistics</h1>
+  
+  <div class="grid xl:grid-cols-2 place-items-center gap-6">
+    <div class="space-y-5">
+      <h2 class="text-2xl font-bold dark:text-white">Challenges</h2>
+      {% if data_challenge and colors_challenge and labels_challenge %}
+      <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6 ">
+        <div class="py-6" id="pie-chart-challenge"></div>
+      </div>
+      {% else %}
+      <h2>No data yet</h2>
+      
+      {% endif %}
+    </div>
+    <div class="space-y-5">
+      <h2 class="text-2xl font-bold dark:text-white">Exercises</h2>
+      {% if  data_exercise and colors_exercise and labels_exercise%}
+      <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+        <div class="py-6" id="pie-chart-exercise"></div>
+      </div>
+      {% else %}
+        <h2>No data yet</h2>
+      {% endif %}
+    </div>
+  </div>
+
+</div>
+{% endblock content %}

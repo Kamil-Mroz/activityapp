@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<script>
+  var dates = [
+            {% for date in dates %}
+                "{{ date }}",
+            {% endfor %}
+        ];
+      
+      var stats = [
+        {% for stat in stats %}
+          {{ stat }},
+        {% endfor %}
+      ];
+    
+  
+</script>
+
+<div class="space-y-3">
+  <a href="{% url 'exercise_list' %}" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+      <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/>
+      </svg>
+      Go back
+  </a>
+  {% if exercise.image %}
+    <img class="rounded-full w-20 h-20" src="{{exercise.image.url}}" alt="Exercise {{exercise.name}}">
+  {% endif %}
+
+  <h2 class="text-4xl font-extrabold dark:text-white">{{exercise.name}}</h2>
+  <p class="text-gray-500 dark:text-gray-200">Target muscle: {{exercise.body_part}}</p>
+  <p class="text-gray-500 dark:text-gray-200">Equipment: {{exercise.equipment}}</p>
+  <p class="text-gray-500 dark:text-gray-200 max-w-prose">Description: {{exercise.description}}</p>
+  <div class="flex flex-wrap gap-2">
+    <a href="{% url 'exercise_workout_list' exercise.id %}" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 inline-block">Add exercise to workout</a>
+    {% comment %} {% if stats%}
+    <a href="{% url 'download_exercise_pdf' exercise.id %}" class="focus:outline-none text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-700 dark:hover:bg-blue-800 dark:focus:ring-blue-900 inline-block">Download PDF</a>
+    {% endif %} {% endcomment %}
+  </div>
+    
+  {% if request.user.is_staff %}
+  <div>
+    <a href="{% url 'exercise_edit' exercise.id%}" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900 inline-block">Edit exercise</a>
+    <a href="{% url 'exercise_delete' exercise.id%}" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 inline-block">Delete exercise</a>
+  </div>
+    {% endif %}
+  {% if stats %}
+
+  <div class="max-w-xl w-full h-96 bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6 text-white">
+    <h2 class="text-4Xl font-bold">{{exercise_type}}</h2>
+    <div id="line-chart"></div>
+  </div>
+  <div>
+    <h3 class="text-2xl">Best 
+      {% if exercise_type|slice:"-2" == "(s)" %}
+        {{ exercise_type|slice:"0:-2" }}
+      {% else %}
+        {{ exercise_type }}
+      {% endif %}
+    </h3>
+    <ol class="list-decimal list-inside space-y-1">
+      {% for best_stat in best_stats %}
+
+        {% if best_stat.exercise.equipment in weight %}
+          <li>{{best_stat.weight}} - {{best_stat.created|date:"d M"}}</li>
+        {% elif best_stat.exercise.equipment == "Cardio" %}
+          <li>{{best_stat.cardio_duration}} - {{best_stat.created|date:"d M Y"}}</li>
+        {% else %}
+          <li>{{best_stat.repetitions}} - {{best_stat.created|date:"d M"}}</li>
+        {% endif %}
+
+      {% endfor %}
+    </ol>
+    
+  </div>
+
+
+  {% else %}
+  <p class="text-gray-700 dark:text-gray-100 text-2xl">No data yet</p>
+
+  {% endif %}
+
+</div>
+{% endblock content %}

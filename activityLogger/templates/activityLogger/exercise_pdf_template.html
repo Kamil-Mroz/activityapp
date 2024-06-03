@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{exercise.name}}</title>
+</head>
+<body>
+  <div style="margin-bottom: 1.5rem;font-family:sans-serif; color: #111827">
+
+    <h1 style="font-size: 2.25rem; font-weight: bold; margin-bottom: 0.5rem;">{{ exercise.name }}</h1>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem;">Equipment: {{ exercise.equipment }}</p>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem;">Body part: {{ exercise.body_part }}</p>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem;">Description: {{ exercise.description }}</p>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem;">Generated: {{ today|date:"d M Y" }}</p>
+    <div style="margin-top: 1.5rem;">
+        <h2>Exercise Entries by Year and Month:</h2>
+        <ul style="list-style-type: none; padding: 0;">
+            {% for entry_group in entries %}
+            <li style="margin-bottom: 1rem; border-bottom: 1px solid #ddd; padding-bottom: 1rem;">
+                <strong>{{ entry_group.month|date:"M" }}-{{ entry_group.year|date:"Y" }}:</strong><br>
+                {% if entry_group.sum_repetitions %}
+                <p>Sum of Repetitions: {{ entry_group.sum_repetitions }}</p>
+                {% elif  entry_group.sum_cardio_duration %}
+                <p>Sum of Cardio Duration: {{ entry_group.sum_cardio_duration }}</p>
+                {% elif entry_group.sum_repetition_weight%}
+                <p>Sum of Repetition * Weight: {{ entry_group.sum_repetition_weight }}</p>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+
+</body>
+</html>

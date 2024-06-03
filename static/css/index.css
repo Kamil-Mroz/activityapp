@@ -1,0 +1,55 @@
+.login-form p{
+  display: flex;
+  gap: .2rem;
+  flex-direction: column;
+    
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+    background-color: #f9fafb;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #d1d5db;
+    color: #111827;
+    font-size: 0.875rem; /* Assuming 16px base font size */
+    border-radius: 0.5rem; /* You can adjust the value as needed */
+    padding: 0.625rem; /* Assuming 16px base font size */
+}
+
+.login-form input[type="text"]:focus,
+.login-form input[type="text"]:focus-visible,
+.login-form input[type="password"]:focus,
+.login-form input[type="password"]:focus-visible {
+    outline-color: rgba(59, 130, 246, 0.5);
+    outline-width: 2px;
+    outline-style: solid;
+    outline-offset: 2px;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+}
+
+.dark .login-form input[type="text"],
+.dark .login-form input[type="password"] {
+    background-color: #374151;
+    border-color: #4b5563;
+    color: #fff;
+}
+
+.dark .login-form input[type="text"]::placeholder 
+.dark .login-form input[type="password"]::placeholder {
+    color: #9ca3af;
+}
+
+.dark .login-form input[type="text"]:focus,
+.dark .login-form input[type="text"]:focus-visible,
+.dark .login-form input[type="password"]:focus,
+.dark .login-form input[type="password"]:focus-visible{
+    outline-color: rgba(59, 130, 246, 0.5);
+    outline-width: 2px;
+    outline-style: solid;
+    outline-offset: 2px;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+}
+

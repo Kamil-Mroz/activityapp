@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Create workout
+{% endblock title %}
+
+{% block content %}
+<section class="grid flex-1 place-items-center">
+  <div class="space-y-10 flex flex-col items-center w-full">
+    <h1 class="text-3xl">Create a workout</h1>
+
+  <div class="max-w-sm w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-600 ">
+    <div class="p-4 sm:p-8">
+      <form method="post" class="space-y-4">
+        {% csrf_token %}
+        
+          {{form.as_p}}
+        <p class="hidden md:block">Press control to select more exercises.</p>
+
+
+      
+      <button type="submit" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 block mx-auto mt-4">Create Workout</button>
+
+    </form>
+</div>
+</div>
+</section>
+{% endblock content %}
+
+<div class="workout">
+  <p>
+    <label for=""></label>
+    <textarea name="" id="" cols="30" rows="10"></textarea>
+  </p>
+</div>

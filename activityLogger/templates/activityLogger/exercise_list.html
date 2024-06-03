@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="grow space-y-7 flex flex-col ">
+  
+    <h2 class=" text-2xl text-center">Select an exercise</h2>
+
+    {% if request.user.is_staff %}
+      <a href="{% url 'exercise_create' %}" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5  dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 mx-auto ">Add new exercise</a>
+    {% endif %}
+      <form method="GET" action="{% url 'exercise_list' %}" class=" flex flex-col items-center space-y-2 ">
+
+        <h2>Filter:</h2>
+        <div class="w-full max-w-sm space-y-2">
+          <select id="body_part_filter" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="body_part">
+            <option value="">Select Body Part</option>
+            {% for body_part_key, body_part_value in body_parts %}
+            <option value="{{ body_part_key }}" {% if body_part_key == selected_body_part %} selected {% endif %}>{{ body_part_value }}</option>
+            {% endfor %}
+          </select>
+          
+        <select id="equipment_filter" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="equipment">
+            <option value="">Select Equipment</option>
+            {% for equipment_key, equipment_value in equipment %}
+            <option value="{{ equipment_key }}" {% if equipment_key == selected_equipment %} selected {% endif %}>{{ equipment_value }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <button type="submit" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5  dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 mx-auto">Apply Filters</button>
+      </form>
+    
+    <div class="w-full h-1 grow max-w-sm overflow-y-auto space-y-3 mx-auto">
+    
+    {% for exercise in exercises %}
+      <a href="{% url 'exercise_detail' exercise.id %}" class="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800 block">
+        
+      <span class="block ">{{exercise.name}} ({{exercise.equipment}})</span>
+      <span class="block">{{exercise.body_part}}</span>
+      </a>
+    {% endfor %}
+  </div>
+</section>
+
+{% endblock content %}

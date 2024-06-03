@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}
+Register
+{% endblock title %}
+
+{% block content %}
+<section class="grid flex-1 place-items-center">
+            <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-600">
+                <div class="p-4 space-y-4 ">
+                    <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                        Create a new account
+                </h1>
+                <form class="space-y-4" method="POST">
+                {% csrf_token %}
+                
+
+                    <div>
+                        {{ form.username.label_tag }}
+                        {{ form.username }}
+                        {{ form.username.errors }}
+                        <small>{{ form.username.help_text }}</small>
+                    </div>
+                    <div>
+                        {{ form.password1.label_tag }}
+                        {{ form.password1 }}
+                        <small class="text-red-600">{{ form.password1.errors }}</small>
+                        <small>{{ form.password1.help_text }}</small>
+                    </div>
+                    <div>
+                        {{ form.password2.label_tag }}
+                        {{ form.password2 }}
+                        <small class="text-red-600">{{ form.password2.errors }}</small>
+                        <small>{{ form.password2.help_text }}</small>
+                    </div>
+                    <div>
+                        {{ form.captcha }}
+                        <small class="text-red-600">{{ form.captcha.errors }}</small>
+                        <small>{{ form.captcha.help_text }}</small>
+                    </div>
+                                    
+
+                
+                    <button type="submit" class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Register</button>
+                    <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+                        Have an account? <a href="{% url 'login' %}" class="font-medium text-blue-600 hover:underline dark:text-blue-500">Login</a>
+                    </p>
+                </form>
+                </div>
+            </div>
+    </section>
+{% endblock content %}

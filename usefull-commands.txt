@@ -1,0 +1,50 @@
+Konfiguracja
+
+Utworzyć plik .env w katalogu mainapp wkleić poniższy kod (Nie dodawać spacji pomiędzy znakiem '=' bo się program pierdoli): 
+
+DEBUG=True
+SECRET_KEY='django-insecure-jsq4yg4mu00*$d5guc@hi#=_8ecx&&9^&%8$)=!+!s1avjjp_%'
+NPM_PATH='C:/Program Files/nodejs/npm.cmd'
+wstawić własną ścieżkę do npm wpisując 'where npm' w konsoli
+końcówka coś w tym stylu '*/nodejs/npm.cmd'
+
+
+Uruchomić virtual environment
+https://docs.python.org/3/library/venv.html#:~:text=activate%20virtual%20environment-,POSIX,PS%20C%3A%5C%3E%20%3Cvenv%3E%5CScripts%5CActivate.ps1,-New%20in%20version
+source venv/Scripts/activate;
+
+Instalacja pakietów
+pip install -r requirements.txt
+
+Instalacja pakietów npm komendę wywołać w folderze theme/static_src/
+npm install
+
+Instalacja pakietów do tailwind
+py manage.py taiwlind install
+
+Migracja tabel
+py manage.py migrate
+Jeśli są jakieś konflikty polecam usuną plik db.sqlite3 oraz w różnych katalogach znaleźć folder migration i usunąć pliki 00001_initial.py (przykładowy plik) i nie tykać __init__.py  
+
+Tworzenie administratora (można pominąć pola email)
+py manage.py createsuperuser;
+
+
+Uruchomienie serwerów
+py manage.py runserver
+py manage.py tailwind start
+
+
+Budowanie documentacji
+
+sphinx-apidoc -o docs .
+
+cd docs/
+
+make html
+
+// Ignorować poniższy kod
+source venv/Scripts/activate;py manage.py runserver;
+source venv/Scripts/activate;py manage.py tailwind start;
+
+source venv/Scripts/activate;

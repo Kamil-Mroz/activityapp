@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="space-y-3">
+  <a href="{% url 'challenge_list' %}" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+      <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/>
+      </svg>
+      Go back
+  </a>
+<h2 class="text-4xl font-extrabold dark:text-white">{{challenge.title}}</h2>
+<p><span class="font-bold">Exercise</span>: {{challenge.exercise.name}}</p>
+<p class="max-w-prose"><span class="font-bold">Description:</span> {{challenge.description}}</p>
+<p><span class="font-bold">Start date</span>: {{challenge.start_date}}</p>
+<p><span class="font-bold">End date</span>: {{challenge.end_date}}</p>
+<div>
+  <p class="font-bold">Goal</p>
+  {% if challenge.repetitions %}
+  <p>Repetitions: {{challenge.repetitions}}</p>
+  {% elif challenge.weight %}
+  <p>Weight: {{challenge.weight}}</p>
+  {% elif challenge.cardio_duration %}
+  <p>Cardio duration: {{challenge.cardio_duration}}</p>
+  {%else%}
+  <p>Set a goal</p>
+  {% endif %}
+  </div>
+  <div class="mt-4">
+    {% if today <= challenge.start_date %}
+    <p class="text-green-500 dark:text-green-400">Challenge yet to start.</p>
+    {%elif today >= challenge.start_date and today <= challenge.end_date%}
+  
+  {% if user_challenge %}
+  <a href="{% url 'challenge_leave' challenge.id %}" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 inline-block">Leave the challenge</a>
+  
+  {% else %}
+    <a href="{%url 'challenge_join' challenge.id %}" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5  dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 inline-block">Join the challenge</a>
+  {% endif %}
+
+
+  {% elif today >= challenge.end_date %}
+  <p class="text-red-600">Challenge ended.</p>
+
+  {% endif %}
+
+</div>
+  
+{% if request.user.is_staff %}
+  <div class="flex flex-wrap gap-2">
+    <a href="{% url 'challenge_stat' challenge.id %}" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:focus:ring-yellow-900 inline-block">Edit Goal</a>
+    <a href="{% url 'challenge_edit' challenge.id %}" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:focus:ring-yellow-900 inline-block">Edit Description</a>
+    <a href="{% url 'challenge_delete' challenge.id %}" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 inline-block">Delete challenge</a>
+  </div>
+{% endif %}
+
+{% if user_challenge%}
+
+  <p>Progress</p>
+  <div class="w-full max-w-xl h-6 bg-gray-200 rounded-full relative dark:bg-gray-800 overflow-hidden">
+    <div class="bg-blue-600  h-6 text-md font-medium  text-center p-0.5 leading-none rounded-full flex items-center justify-center" style="width: {{progress}}%"></div>
+    <div class="absolute inset-0 flex items-center justify-center">{{progress}}%</div>
+  </div>
+  <p>Goal: {{stat}} / {{end_goal}}</p>
+  <a href="{% url 'exercise_workout_list' challenge.exercise.id %}" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 mx-auto mt-4 inline-block"> Add {{challenge.exercise}} to a workout.</a>
+  {% endif %}
+</div>
+{% endblock content %}
