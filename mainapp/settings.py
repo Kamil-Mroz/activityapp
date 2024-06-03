@@ -34,7 +34,6 @@ SECRET_KEY = " django-insecure-jsq4yg4mu00*$d5guc@hi#=_8ecx&&9^&%8$)=!+!s1avjjp_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-NPM_BIN_PATH = env("NPM_PATH")
 
 ALLOWED_HOSTS = ["*"]
 
@@ -278,8 +277,5 @@ LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/login"
 LOGIN_URL = "/login"
 
-
-RECAPTCHA_PUBLIC_KEY = env("RECAPTCHA_PUBLIC_KEY")
-RECAPTCHA_PRIVATE_KEY = env("RECAPTCHA_PRIVATE_KEY")
 
 # WKHTMLTOPDF_PATH = env("WKHTMLTOPDF_PATH")
